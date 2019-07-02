@@ -17,9 +17,10 @@ class MainActivity : AppCompatActivity() {
 
     private var isTransmiting:Boolean = false
 
+    private lateinit var timer:Timer
+
     private val beaconCallback: IBeaconCallback = object:IBeaconCallback {
         override fun onBeaconsDetected(beacons: ArrayList<Beacon>) {
-            //if(isTransmiting) return
             equipmentBeacons.clear()
             var placeBeacon: Beacon? = null
             var beaconToSend: Beacon = Beacon(Constants.UUID_WORKER, 10, 1, 0, -80, 0.0)
@@ -42,30 +43,26 @@ class MainActivity : AppCompatActivity() {
             if(placeBeacon === null || beaconToSend.minor === 0 || placeBeacon.getCalculatedDistance() > Constants.MAX_DISTANCE_PLACE) return
             //beaconProvider.stop()
 
-            if(!isTransmiting){
-                beaconTransmiter.start(beaconToSend)
-
-                var timer: Timer = Timer()
-                timer.schedule(object:TimerTask() {
-                    override fun run() {
-                        isTransmiting = false
-                        beaconTransmiter.stop()
-                    }
-                }, 2000)
+            if(isTransmiting) {
+                timer?.cancel()
             }
+
+            beaconTransmiter.start(beaconToSend)
             isTransmiting = true
+
+            timer = Timer()
+            timer.schedule(object:TimerTask() {
+                override fun run() {
+                    isTransmiting = false
+                    beaconTransmiter.stop()
+                }
+            }, 2000)
         }
 
         override fun onError() {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
-
-//    fun startBeaconProvider(){
-//        beaconTransmiter.stop()
-//        beaconProvider.start(beaconCallback)
-//        isTransmiting = false
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

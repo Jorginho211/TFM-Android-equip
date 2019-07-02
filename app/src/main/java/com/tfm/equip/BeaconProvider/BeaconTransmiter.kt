@@ -20,7 +20,9 @@ class BeaconTransmiter: IBeaconTransmiter {
 
 
     override fun start(beacon: Beacon) {
-        if(running) return
+        if(running){
+            this.stop()
+        }
 
         running = true
         var beaconNative:org.altbeacon.beacon.Beacon = org.altbeacon.beacon.Beacon.Builder()
