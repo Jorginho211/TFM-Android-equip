@@ -1,16 +1,13 @@
-package com.tfm.equip
+package com.tfm.equip.Activities
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.tfm.equip.BeaconProvider.*
+import com.tfm.equip.R
 import com.tfm.equip.Services.EquipmentService
 import com.tfm.equip.Utils.Constants
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

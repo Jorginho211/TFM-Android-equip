@@ -11,7 +11,7 @@ import kotlin.collections.ArrayList
 import android.R
 import android.app.Notification
 import android.support.v4.app.NotificationCompat
-import com.tfm.equip.MainActivity
+import com.tfm.equip.Activities.MainActivity
 import android.app.PendingIntent
 
 
