@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Equip</string>
+
+
+    <!-- LOGIN -->
+    <string name="login_username">Usuario</string>
+    <string name="login_password">Contrasinal</string>
+    <string name="login_access">Entrar</string>
+    <string name="login_img">Logo Equip</string>
+
 </resources>
