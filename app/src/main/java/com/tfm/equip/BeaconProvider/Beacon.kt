@@ -36,7 +36,7 @@ class Beacon: Parcelable {
     }
 
     fun getCalculatedDistance(): Double {
-        val n: Int = 2
+        val n: Int = 3
 
         val distance:Double =  Math.pow(10.0, ((this.txPower - this.rssi)/(10.0 * n)))
         return distance

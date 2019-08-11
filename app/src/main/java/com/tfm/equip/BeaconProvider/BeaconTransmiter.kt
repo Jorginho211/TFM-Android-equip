@@ -41,7 +41,7 @@ class BeaconTransmiter: IBeaconTransmiter {
         }
 
         beaconTransmitter?.stopAdvertising()
-        beaconTransmitter?.advertiseMode = AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY
+        beaconTransmitter?.advertiseMode = AdvertiseSettings.ADVERTISE_MODE_BALANCED
         beaconTransmitter?.advertiseTxPowerLevel = AdvertiseSettings.ADVERTISE_TX_POWER_HIGH
         beaconTransmitter?.startAdvertising(beaconNative, object:AdvertiseCallback() {
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
