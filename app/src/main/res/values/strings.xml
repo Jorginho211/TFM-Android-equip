@@ -8,4 +8,10 @@
     <string name="login_access">Entrar</string>
     <string name="login_img">Logo Equip</string>
 
+
+    <!-- PRINCIPAL -->
+    <string name="principal_title">Menu principal</string>
+    <string name="principal_allowed_places">Ver areas permitidas</string>
+    <string name="principal_actual_state">Ver estado actual</string>
+
 </resources>

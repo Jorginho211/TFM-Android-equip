@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import com.tfm.equip.R
 import com.tfm.equip.Services.EquipmentService
 import com.tfm.equip.Utils.Constants
@@ -19,6 +21,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         //checkPermissionAndRequest()
+
+        var btnLogin: Button = findViewById(R.id.loginBtn)
+        btnLogin.setOnClickListener {
+            var intent:Intent = Intent(this, Principal::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun checkPermissionAndRequest(){
