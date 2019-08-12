@@ -29,16 +29,22 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".Activities.Principal"
-                android:label="@string/principal_title"
+                android:name=".Activities.PrincipalActivity"
                 android:configChanges="orientation"
+                android:label="@string/principal_title"
                 android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Activities.Places"
-                  android:label="@string/title_activity_places"
+        <activity
+                android:name=".Activities.PlacesActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"
+                android:label="@string/title_activity_places"
+                android:parentActivityName=".Activities.PrincipalActivity">
+        </activity>
+        <activity android:name=".Activities.PlaceActivity"
                   android:configChanges="orientation"
                   android:screenOrientation="portrait"
-                  android:parentActivityName=".Activities.Principal">
+                  android:parentActivityName=".Activities.PlacesActivity">
         </activity>
 
         <service

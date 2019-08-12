@@ -1,23 +1,21 @@
 package com.tfm.equip.Activities
 
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import com.tfm.equip.R
 
-class Principal: AppCompatActivity() {
+class PrincipalActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
 
         var placesBtn:Button = findViewById(R.id.allowedPlacesBtn)
         placesBtn.setOnClickListener {
-            var intent:Intent = Intent(this, Places::class.java)
+            var intent:Intent = Intent(this, PlacesActivity::class.java)
             startActivity(intent)
         }
     }

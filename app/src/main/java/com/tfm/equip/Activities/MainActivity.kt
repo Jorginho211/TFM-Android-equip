@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import com.tfm.equip.R
 import com.tfm.equip.Services.EquipmentService
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         var btnLogin: Button = findViewById(R.id.loginBtn)
         btnLogin.setOnClickListener {
-            var intent:Intent = Intent(this, Principal::class.java)
+            var intent:Intent = Intent(this, PrincipalActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
