@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         var btnLogin: Button = findViewById(R.id.loginBtn)
         btnLogin.setOnClickListener {
             var intent:Intent = Intent(this, Principal::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
         }
 
