@@ -7,15 +7,18 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Button
 import com.tfm.equip.R
 
 class Principal: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_principal)
-        if(actionBar !== null){
-            actionBar.title = Resources.getSystem().getResourceName(R.string.principal_title)
+
+        var placesBtn:Button = findViewById(R.id.allowedPlacesBtn)
+        placesBtn.setOnClickListener {
+            var intent:Intent = Intent(this, Places::class.java)
+            startActivity(intent)
         }
     }
 
