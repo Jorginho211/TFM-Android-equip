@@ -15,4 +15,7 @@
     <string name="principal_actual_state">Ver estado actual</string>
     <string name="title_activity_places">Areas Permitidas</string>
 
+    <!-- PLACES -->
+    <string name="places_title">Areas Permitidas</string>
+
 </resources>

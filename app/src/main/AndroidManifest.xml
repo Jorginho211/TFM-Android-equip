@@ -17,11 +17,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity
-                android:name=".Activities.places"
-                android:label="@string/title_activity_places"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
         <activity
                 android:name=".Activities.MainActivity"
                 android:configChanges="orientation"
@@ -34,8 +30,15 @@
         </activity>
         <activity
                 android:name=".Activities.Principal"
+                android:label="@string/principal_title"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Activities.Places"
+                  android:label="@string/title_activity_places"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".Activities.Principal">
         </activity>
 
         <service
