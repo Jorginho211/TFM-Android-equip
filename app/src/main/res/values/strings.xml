@@ -18,7 +18,12 @@
     <!-- PLACES -->
     <string name="places_title">Areas Permitidas</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- PLACE -->
+    <string name="place_equipment_text">Equipamento necesario:</string>
+
+    <!-- STATE -->
+    <string name="state_title">Estado</string>
+    <string name="state_equipment_text">Equipamento:</string>
+    <string name="state_place_title">Area Actual:</string>
 
 </resources>

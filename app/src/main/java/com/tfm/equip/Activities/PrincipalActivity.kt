@@ -18,6 +18,12 @@ class PrincipalActivity: AppCompatActivity() {
             var intent:Intent = Intent(this, PlacesActivity::class.java)
             startActivity(intent)
         }
+
+        var stateBtn:Button = findViewById(R.id.stateBtn)
+        stateBtn.setOnClickListener {
+            var intent:Intent = Intent(this, StateActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
