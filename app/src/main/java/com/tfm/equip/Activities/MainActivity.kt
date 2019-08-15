@@ -15,8 +15,8 @@ import android.widget.EditText
 import android.widget.TextView
 import com.tfm.equip.DTOs.UserDTO
 import com.tfm.equip.Database.AppDatabase
-import com.tfm.equip.Database.AsyncTasks.GetLastLoggedUserBD
-import com.tfm.equip.Database.AsyncTasks.InsertOrUpdateUserBD
+import com.tfm.equip.AsyncTasks.GetLastLoggedUserBD
+import com.tfm.equip.AsyncTasks.InsertOrUpdateUserBD
 import com.tfm.equip.Database.Entities.UserEntity
 import com.tfm.equip.R
 import com.tfm.equip.Services.EquipmentService
@@ -50,11 +50,13 @@ class MainActivity : AppCompatActivity() {
                         return
                     }
 
-                    InsertOrUpdateUserBD(this@MainActivity, object: CallbackInterface<UserEntity>{
-                        override fun doCallback(userEntity: UserEntity) {
-                            loginSucess(true)
-                        }
-                    }).execute(userDto)
+                    InsertOrUpdateUserBD(
+                        this@MainActivity,
+                        object : CallbackInterface<UserEntity> {
+                            override fun doCallback(userEntity: UserEntity) {
+                                loginSucess(true)
+                            }
+                        }).execute(userDto)
                 }
             })
         }
