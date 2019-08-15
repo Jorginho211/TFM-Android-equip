@@ -12,13 +12,18 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startActivity(Intent(this, MainActivity::class.java))
 
         GetLastLoggedUserBD(this, object : CallbackInterface<UserEntity?> {
             override fun doCallback(userEntity: UserEntity?) {
                 if (userEntity !== null) {
                     SharedData.User = userEntity
                     loginSucess(false)
+                }
+                else {
+                    var intent:Intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
                 }
             }
         }).execute()
