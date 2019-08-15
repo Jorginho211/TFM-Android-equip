@@ -12,6 +12,6 @@ data class UserEntity(
     @NotNull
     val uuid:String?,
 
-    val Token: String?,
-    val IsLogged: Boolean
+    var Token: String?,
+    var IsLogged: Boolean
 )

@@ -14,6 +14,9 @@ interface UserDao {
     @Query("SELECT * FROM Users WHERE id = :id")
     fun getUserById(id: Int): UserEntity
 
+    @Query("UPDATE Users SET IsLogged = 0")
+    fun logoutAllUsers()
+
     @Insert
     fun insert(user:UserEntity)
 
