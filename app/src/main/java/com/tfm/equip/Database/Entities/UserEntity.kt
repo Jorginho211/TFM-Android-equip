@@ -10,8 +10,8 @@ data class UserEntity(
     val id: Int,
 
     @NotNull
-    val uuid:String?,
+    val uuid:String,
 
-    var Token: String?,
+    var Token: String,
     var IsLogged: Boolean
 )

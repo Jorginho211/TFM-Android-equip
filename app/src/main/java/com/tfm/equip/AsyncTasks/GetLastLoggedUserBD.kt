@@ -6,7 +6,7 @@ import com.tfm.equip.Database.AppDatabase
 import com.tfm.equip.Database.Entities.UserEntity
 import com.tfm.equip.Utils.CallbackInterface
 
-class GetLastLoggedUserBD(context:Context, callback: CallbackInterface<UserEntity?>): AsyncTask<Void, Void, UserEntity>() {
+class GetPlaceEquipmentsBD(context:Context, callback: CallbackInterface<UserEntity?>): AsyncTask<Void, Void, UserEntity>() {
     private var callback:CallbackInterface<UserEntity?>
     private var db:AppDatabase
 

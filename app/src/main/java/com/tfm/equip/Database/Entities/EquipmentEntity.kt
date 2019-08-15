@@ -17,4 +17,8 @@ data class EquipmentEntity(
 
     @NotNull
     val Minor:Int
-)
+) {
+    override fun toString(): String {
+        return this.Name
+    }
+}

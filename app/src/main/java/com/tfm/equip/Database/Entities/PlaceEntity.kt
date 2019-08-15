@@ -10,11 +10,15 @@ data class PlaceEntity(
     val id: Int,
 
     @NotNull
-    val Name: String?,
+    val Name: String,
 
     @NotNull
     val Major: Int,
 
     @NotNull
     val Minor: Int
-)
+) {
+    override fun toString(): String {
+        return this.Name
+    }
+}
