@@ -1,4 +1,4 @@
-package com.tfm.equip.Database.AsyncTasks
+package com.tfm.equip.AsyncTasks
 
 import android.content.Context
 import android.os.AsyncTask
