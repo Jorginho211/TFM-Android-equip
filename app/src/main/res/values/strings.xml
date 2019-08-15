@@ -22,6 +22,7 @@
 
     <!-- PLACE -->
     <string name="place_equipment_text">Equipamento necesario:</string>
+    <string name="place_loading">Cargando Plano e Equipamento</string>
 
     <!-- STATE -->
     <string name="state_title">Estado</string>

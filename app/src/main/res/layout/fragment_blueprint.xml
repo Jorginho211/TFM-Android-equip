@@ -6,5 +6,5 @@
              tools:context=".Fragments.BlueprintFragment">
     <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/blueprintImageView" android:src="@drawable/equip_logo_blue"/>
+            android:layout_height="match_parent" android:id="@+id/blueprintImageView"/>
 </FrameLayout>

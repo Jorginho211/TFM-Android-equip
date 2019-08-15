@@ -5,4 +5,5 @@ class PlaceDTO {
     var major:Int = -1
     var minor: Int = -1
     lateinit var name:String
+    lateinit var blueprint:String
 }

@@ -124,4 +124,30 @@ class RestApi {
 
         return equipmentsDTO
     }
+
+    fun getPlace(idPlace:Int, token:String, callback: CallbackInterface<PlaceDTO?>) {
+        val resource:String = "/api/v1/place/" + idPlace;
+
+        val headers:Map<String,String> = mapOf("Authorization" to "Bearer " + token)
+
+        khttp.async.get(URI_BASE + resource, headers, onError = {
+            callback.doCallback(null)
+        }) {
+            if(this.statusCode == 401){
+                callback.doCallback(null)
+            }
+            else {
+                val placeJSON:JSONObject = this.jsonObject
+
+                var placeDTO:PlaceDTO = PlaceDTO()
+                placeDTO.id = placeJSON.getInt("id")
+                placeDTO.major = placeJSON.getInt("major")
+                placeDTO.minor = placeJSON.getInt("minor")
+                placeDTO.name = placeJSON.getString("name")
+                placeDTO.blueprint = placeJSON.getString("blueprint")
+
+                callback.doCallback(placeDTO)
+            }
+        }
+    }
 }

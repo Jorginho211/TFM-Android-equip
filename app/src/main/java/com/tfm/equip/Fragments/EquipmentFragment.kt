@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import com.tfm.equip.Database.Entities.EquipmentEntity
 
 import com.tfm.equip.R
 
@@ -20,33 +21,27 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class EquipmentFragment : Fragment() {
+class EquipmentFragment: Fragment() {
+    lateinit var equipmentListView:ListView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         var root = inflater.inflate(R.layout.fragment_equipment, container, false)
-
-        var list = ArrayList<String>()
-
-        list.add("Equip1")
-        list.add("Equip1")
-        list.add("Equip1")
-        list.add("Equip1")
-        list.add("Equip1")
-        list.add("Equip1")
-        list.add("Equip1")
-        list.add("Equip1")
-        list.add("Equip1")
-        list.add("Equip1")
-
-        var equipmentListView:ListView = root.findViewById(R.id.equipmentListView)
-        var arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this.context, android.R.layout.simple_list_item_1, list)
-        equipmentListView.adapter = arrayAdapter
+        equipmentListView = root.findViewById(R.id.equipmentListView)
 
         return root
     }
+
+    fun showEquipments(equipmentsPlace: ArrayList<EquipmentEntity>, equipmentsUser: ArrayList<EquipmentEntity>?){
+        if(equipmentsUser == null){
+            var adapter:ArrayAdapter<EquipmentEntity> = ArrayAdapter<EquipmentEntity>(this.context, android.R.layout.simple_list_item_1, equipmentsPlace)
+            equipmentListView.adapter = adapter
+            return
+        }
+    }
+
+
 }
