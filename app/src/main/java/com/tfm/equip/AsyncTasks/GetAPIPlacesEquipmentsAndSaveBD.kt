@@ -30,6 +30,11 @@ class GetAPIPlacesEquipmentsAndSaveBD(context: Context, callback:CallbackInterfa
             return false
         }
 
+        val allPlacesDTO:ArrayList<PlaceDTO>? = restApi.getAllPlacesSync(userEntity.Token!!)
+        if(allPlacesDTO === null){
+            return false
+        }
+
         var equipmentsDTO: ArrayList<EquipmentDTO>? = restApi.getEquipmentsSync(userEntity.Token!!)
         if(equipmentsDTO === null){
             return false
@@ -38,8 +43,14 @@ class GetAPIPlacesEquipmentsAndSaveBD(context: Context, callback:CallbackInterfa
         db.placeDao().deleteAll()
         db.equipmentDao().deleteAll()
 
-        for(placeDTO in placesDTO){
-            db.placeDao().insert(PlaceEntity(placeDTO.id, placeDTO.name, placeDTO.major, placeDTO.minor))
+        for(placeDTO in allPlacesDTO){
+            var hasPermission:Boolean = false
+
+            if(placesDTO.find { p -> p.id === placeDTO.id } !== null){
+                hasPermission = true
+            }
+
+            db.placeDao().insert(PlaceEntity(placeDTO.id, placeDTO.name, placeDTO.major, placeDTO.minor, hasPermission))
         }
 
         for(equipmentDTO in equipmentsDTO){

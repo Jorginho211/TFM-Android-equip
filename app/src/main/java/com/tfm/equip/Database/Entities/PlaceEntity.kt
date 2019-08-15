@@ -16,7 +16,10 @@ data class PlaceEntity(
     val Major: Int,
 
     @NotNull
-    val Minor: Int
+    val Minor: Int,
+
+    @NotNull
+    val HasPermission: Boolean
 ) {
     override fun toString(): String {
         return this.Name

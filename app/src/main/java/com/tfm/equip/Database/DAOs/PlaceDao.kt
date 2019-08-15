@@ -7,7 +7,7 @@ import com.tfm.equip.Database.Entities.PlaceEntity
 
 @Dao
 interface PlaceDao {
-    @Query("SELECT * FROM Places")
+    @Query("SELECT * FROM Places WHERE HasPermission = 1")
     fun getAllPlaces(): List<PlaceEntity>
 
     @Query("SELECT * FROM Places WHERE id = :id")

@@ -44,6 +44,33 @@ class RestApi {
         }
     }
 
+    fun getAllPlacesSync(token:String): ArrayList<PlaceDTO>? {
+        val resource:String = "/api/v1/place/"
+
+        val headers:Map<String,String> = mapOf("Authorization" to "Bearer " + token)
+        val response = khttp.get(URI_BASE + resource, headers)
+
+        if(response.statusCode != 200){
+            return null
+        }
+
+        var placesDto:ArrayList<PlaceDTO> = ArrayList()
+
+        for(i in 0 until response.jsonArray.length()){
+            val placeJSON = response.jsonArray.getJSONObject(i)
+
+            var placeDTO:PlaceDTO = PlaceDTO()
+            placeDTO.id = placeJSON.getInt("id")
+            placeDTO.major = placeJSON.getInt("major")
+            placeDTO.minor = placeJSON.getInt("minor")
+            placeDTO.name = placeJSON.getString("name")
+
+            placesDto.add(placeDTO)
+        }
+
+        return placesDto
+    }
+
     fun getPlacesSync(idUser:Int, token:String): ArrayList<PlaceDTO>? {
         val resource:String = "/api/v1/user/" + idUser + "/places"
 
