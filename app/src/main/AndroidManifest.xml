@@ -43,7 +43,7 @@
         <activity
                 android:name=".Activities.PlacesActivity"
                 android:configChanges="orientation"
-                android:label="@string/title_activity_places"
+                android:label="@string/principal_toolbar_title"
                 android:parentActivityName=".Activities.PrincipalActivity"
                 android:screenOrientation="portrait">
         </activity>

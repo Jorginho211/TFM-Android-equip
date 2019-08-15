@@ -17,7 +17,7 @@ interface PlaceDao {
     fun getPlaceByMajorMinor(major:Int, minor:Int): PlaceEntity
 
     @Insert
-    fun insertPlaces(vararg places: PlaceEntity)
+    fun insert(place: PlaceEntity)
 
     @Query("DELETE FROM Places")
     fun deleteAll()

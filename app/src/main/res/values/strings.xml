@@ -14,7 +14,8 @@
     <string name="principal_title">Menu principal</string>
     <string name="principal_allowed_places">Ver areas permitidas</string>
     <string name="principal_actual_state">Ver estado actual</string>
-    <string name="title_activity_places">Areas Permitidas</string>
+    <string name="principal_toolbar_title">Areas Permitidas</string>
+    <string name="principal_loading_places_equipments">Obtendo Areas e Equipamentos</string>
 
     <!-- PLACES -->
     <string name="places_title">Areas Permitidas</string>

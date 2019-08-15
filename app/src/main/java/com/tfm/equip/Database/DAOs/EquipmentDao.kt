@@ -17,7 +17,7 @@ interface EquipmentDao {
     fun getPlaceByMajorMinor(major:Int, minor:Int): EquipmentEntity
 
     @Insert
-    fun insertEquipments(vararg equipments: EquipmentEntity)
+    fun insert(equipment: EquipmentEntity)
 
     @Query("DELETE FROM Equipments")
     fun deleteAll()

@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.tfm.equip.AsyncTasks.GetLastLoggedUserBD
 import com.tfm.equip.Database.Entities.UserEntity
 import com.tfm.equip.Utils.CallbackInterface
+import com.tfm.equip.Utils.SharedData
 
 class SplashActivity : AppCompatActivity() {
 
@@ -16,6 +17,7 @@ class SplashActivity : AppCompatActivity() {
         GetLastLoggedUserBD(this, object : CallbackInterface<UserEntity?> {
             override fun doCallback(userEntity: UserEntity?) {
                 if (userEntity !== null) {
+                    SharedData.User = userEntity
                     loginSucess(false)
                 }
             }

@@ -23,6 +23,7 @@ import com.tfm.equip.Services.EquipmentService
 import com.tfm.equip.Utils.CallbackInterface
 import com.tfm.equip.Utils.Constants
 import com.tfm.equip.Utils.RestApi
+import com.tfm.equip.Utils.SharedData
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                         this@MainActivity,
                         object : CallbackInterface<UserEntity> {
                             override fun doCallback(userEntity: UserEntity) {
+                                SharedData.User = userEntity
                                 loginSucess(true)
                             }
                         }).execute(userDto)
