@@ -3,12 +3,28 @@ package com.tfm.equip.Activities
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
+import android.telecom.Call
+import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import com.tfm.equip.DTOs.UserDTO
+import com.tfm.equip.Database.AppDatabase
+import com.tfm.equip.Database.AsyncTasks.GetLastLoggedUserBD
+import com.tfm.equip.Database.AsyncTasks.InsertOrUpdateUserBD
+import com.tfm.equip.Database.Entities.UserEntity
 import com.tfm.equip.R
 import com.tfm.equip.Services.EquipmentService
+import com.tfm.equip.Utils.CallbackInterface
 import com.tfm.equip.Utils.Constants
+import com.tfm.equip.Utils.RestApi
+import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,16 +35,39 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.hide()
         }
 
-        //checkPermissionAndRequest()
+        val usernameTextView: EditText = findViewById(R.id.usernameText)
+        val passwordTextView: EditText = findViewById(R.id.passwordText)
 
         var btnLogin: Button = findViewById(R.id.loginBtn)
         btnLogin.setOnClickListener {
-            var intent:Intent = Intent(this, PrincipalActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
+            RestApi.getInstance().login(usernameTextView.text.toString(), passwordTextView.text.toString(), object: CallbackInterface<UserDTO?>{
+                override fun doCallback(userDto: UserDTO?) {
+                    if(userDto === null){
+                        var containerErrorLogin:ConstraintLayout = findViewById(R.id.containerErrorLogin)
+                        this@MainActivity.runOnUiThread {
+                            containerErrorLogin.visibility = View.VISIBLE
+                        }
+                        return
+                    }
+
+                    InsertOrUpdateUserBD(this@MainActivity, object: CallbackInterface<UserEntity>{
+                        override fun doCallback(userEntity: UserEntity) {
+                            loginSucess(true)
+                        }
+                    }).execute(userDto)
+                }
+            })
         }
 
+        //checkPermissionAndRequest()
+    }
+
+    fun loginSucess(loginApi: Boolean){
+        var intent:Intent = Intent(this, PrincipalActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.putExtra("loginApi", loginApi)
+        startActivity(intent)
     }
 
     fun checkPermissionAndRequest(){

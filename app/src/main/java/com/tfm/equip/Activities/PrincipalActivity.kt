@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import com.tfm.equip.Database.AsyncTasks.LogoutUserBD
 import com.tfm.equip.R
 
 class PrincipalActivity: AppCompatActivity() {
+    var id = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
@@ -33,6 +35,7 @@ class PrincipalActivity: AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(item?.itemId == R.id.action_logout){
+            LogoutUserBD(this).execute(null)
             var intent:Intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

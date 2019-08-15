@@ -25,7 +25,6 @@ class PlacesActivity : AppCompatActivity() {
 
         placesListView.onItemClickListener = AdapterView.OnItemClickListener{
             _, _, i, _ ->
-            Log.i("Selected", list[i])
             var intent:Intent = Intent(this, PlaceActivity::class.java)
             intent.putExtra("place", list[i])
             startActivity(intent)

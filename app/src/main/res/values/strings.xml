@@ -7,7 +7,8 @@
     <string name="login_password">Contrasinal</string>
     <string name="login_access">Entrar</string>
     <string name="login_img">Logo Equip</string>
-
+    <string name="login_error_invalid_data">Datos incorrectos</string>
+    <string name="login_error_img">Icono de Error</string>
 
     <!-- PRINCIPAL -->
     <string name="principal_title">Menu principal</string>

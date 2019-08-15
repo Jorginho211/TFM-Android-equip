@@ -6,10 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context=".Activities.MainActivity">
+        tools:context=".Activities.MainActivity" android:visibility="visible">
     <FrameLayout
             android:layout_width="296dp"
-            android:layout_height="410dp" android:layout_marginTop="8dp"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
@@ -18,43 +18,72 @@
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/containerErrorLogin" android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                    app:layout_constraintEnd_toEndOf="@+id/usernameText"
+                    app:layout_constraintStart_toStartOf="@+id/usernameText" android:visibility="gone">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:srcCompat="@drawable/ic_error_black_24dp"
+                        android:id="@+id/imageView5" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:contentDescription="@string/login_error_img"/>
+                <TextView
+                        android:text="@string/login_error_invalid_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView3"
+                        android:textColor="@color/colorError"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5" android:layout_marginStart="8dp"/>
+            </android.support.constraint.ConstraintLayout>
             <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/usernameText" android:layout_marginStart="24dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="24dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:hint="@string/login_username"
+                    android:id="@+id/usernameText"
+                    android:hint="@string/login_username"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="32dp"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/containerErrorLogin" android:layout_marginStart="32dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="32dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:autofillHints=""/>
             <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:ems="10"
-                    android:id="@+id/passwordText" android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/usernameText" android:layout_marginStart="24dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="24dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:hint="@string/login_password"/>
+                    android:id="@+id/passwordText"
+                    android:hint="@string/login_password"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/usernameText"
+                    app:layout_constraintStart_toStartOf="@+id/usernameText"
+                    app:layout_constraintEnd_toEndOf="@+id/usernameText"/>
             <Button
                     android:text="@string/login_access"
                     android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loginBtn" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="24dp" android:layout_marginTop="32dp"
-                    app:layout_constraintTop_toBottomOf="@+id/passwordText" android:background="@color/colorPrimary"/>
+                    android:id="@+id/loginBtn"
+                    android:background="@color/colorPrimary"
+                    app:layout_constraintTop_toBottomOf="@+id/passwordText"
+                    app:layout_constraintStart_toStartOf="@+id/passwordText" android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="16dp"/>
             <ImageView
                     android:layout_width="121dp"
                     android:layout_height="115dp" app:srcCompat="@drawable/equip_logo_blue"
-                    android:id="@+id/imageView2" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/usernameText"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/login_img"/>
+                    android:id="@+id/imageView2"
+                    android:contentDescription="@string/login_img"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"/>
         </android.support.constraint.ConstraintLayout>
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>
