@@ -7,5 +7,8 @@ class Constants {
 
         const val MAX_DISTANCE_EQUIPMENT:Int = 2
         const val MAX_DISTANCE_PLACE:Int = 5
+
+        const val MAX_TIME_LAST_SEEN_MS:Long = 3000
+        const val INTERVAL_CHECK_PLACE_EQUIPMENT:Long = 1000
     }
 }

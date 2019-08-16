@@ -31,5 +31,6 @@
 
     <!-- EQUIPMENT SERVICE -->
     <string name="equipment_service_notification_title">Servicio de xestión do operario</string>
-    <string name="equipment_service_notification_substitle">O dispositivo esta lendo areas e equipamentos</string>
+    <string name="equipment_service_notification_subtitle">O dispositivo esta lendo areas e equipamentos</string>
+    <string name="equipment_service_equipment_missing_notification_title">Falta o seguinte equipamento</string>
 </resources>

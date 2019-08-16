@@ -11,10 +11,10 @@ interface EquipmentDao {
     fun getAllEquipments(): List<EquipmentEntity>
 
     @Query("SELECT * FROM Equipments WHERE id = :id")
-    fun getPlaceById(id: Int): EquipmentEntity
+    fun getEquipmentById(id: Int): EquipmentEntity
 
     @Query("SELECT * FROM Equipments WHERE Major = :major AND Minor = :minor")
-    fun getPlaceByMajorMinor(major:Int, minor:Int): EquipmentEntity
+    fun getEquipmentByMajorMinor(major:Int, minor:Int): EquipmentEntity
 
     @Insert
     fun insert(equipment: EquipmentEntity)

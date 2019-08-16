@@ -68,6 +68,7 @@ class PrincipalActivity: AppCompatActivity() {
         }
         else if(item?.itemId == R.id.action_update){
             manageLoggedApi(true)
+            checkPermissionAndRequest()
         }
 
         return super.onOptionsItemSelected(item)

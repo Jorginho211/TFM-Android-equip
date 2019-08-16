@@ -2,6 +2,7 @@ package com.tfm.equip.BeaconProvider
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.time.LocalTime
 
 
 class Beacon: Parcelable {
@@ -15,6 +16,7 @@ class Beacon: Parcelable {
     var minor:Int
     var txPower: Int
     var distance: Double
+    var lastSeen: Long
 
 
     constructor(uuid: String, rssi: Int, major: Int, minor: Int, txPower: Int, distance: Double) {
@@ -24,6 +26,7 @@ class Beacon: Parcelable {
         this.minor = minor
         this.txPower = txPower
         this.distance = distance
+        this.lastSeen = System.currentTimeMillis()
     }
 
     constructor(parcel: Parcel) {
@@ -33,6 +36,7 @@ class Beacon: Parcelable {
         this.minor = parcel.readInt()
         this.txPower = parcel.readInt()
         this.distance = parcel.readDouble()
+        this.lastSeen = System.currentTimeMillis()
     }
 
     fun getCalculatedDistance(): Double {
@@ -49,6 +53,7 @@ class Beacon: Parcelable {
         dest.writeInt(minor)
         dest.writeInt(txPower)
         dest.writeDouble(distance)
+        dest.writeLong(lastSeen)
     }
 
     companion object CREATOR : Parcelable.Creator<Beacon> {
