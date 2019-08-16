@@ -94,7 +94,6 @@ class PrincipalActivity: AppCompatActivity() {
                 placesBtn.alpha = 1f
                 stateBtn.alpha = 1f
                 loadingProgressBar.visibility = View.GONE
-                checkPermissionAndRequest()
             }
         }).execute(SharedData.User)
     }
