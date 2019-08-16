@@ -1,6 +1,6 @@
 package com.tfm.equip.Services
 
-import android.app.Service
+import android.app.*
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
@@ -8,12 +8,9 @@ import com.tfm.equip.BeaconProvider.*
 import com.tfm.equip.Utils.Constants
 import java.util.*
 import kotlin.collections.ArrayList
-import android.app.Notification
 import android.support.v4.app.NotificationCompat
-import com.tfm.equip.Activities.MainActivity
-import android.app.PendingIntent
-import android.os.VibrationEffect
-import android.os.Vibrator
+import android.content.Context
+import android.os.Build
 import com.tfm.equip.Activities.PrincipalActivity
 import com.tfm.equip.R
 import com.tfm.equip.Utils.SharedData
@@ -74,24 +71,29 @@ class EquipmentService: Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
 
-        val notificationIntent = Intent(applicationContext, MainActivity::class.java)
+        val notificationIntent = Intent(applicationContext, PrincipalActivity::class.java)
         notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val pendingIntent = PendingIntent.getActivity(
             applicationContext, 0,
             notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT
         )
-        val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID_SERVICE)
-            .setSmallIcon(android.R.mipmap.sym_def_app_icon)
+
+        var builder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID_SERVICE)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(getString(R.string.equipment_service_notification_title))
             .setContentText(getString(R.string.equipment_service_notification_substitle))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
-            .build()
 
+        createNotificationChannel()
+
+        var notification = builder.build()
         notification.flags = notification.flags or Notification.FLAG_ONGOING_EVENT
 
-        startForeground(SERVICE_ID, notification)
         beaconProvider.start(beaconCallback)
         SharedData.EquipmentServiceIsRunning = true
+
+        startForeground(SERVICE_ID, notification)
 
         return START_STICKY
     }
@@ -106,5 +108,22 @@ class EquipmentService: Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.equipment_service_notification_title)
+            val descriptionText = getString(R.string.equipment_service_notification_substitle)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID_SERVICE, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 }
