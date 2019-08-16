@@ -8,13 +8,15 @@ import com.tfm.equip.BeaconProvider.*
 import com.tfm.equip.Utils.Constants
 import java.util.*
 import kotlin.collections.ArrayList
-import android.R
 import android.app.Notification
 import android.support.v4.app.NotificationCompat
 import com.tfm.equip.Activities.MainActivity
 import android.app.PendingIntent
-
-
+import android.os.VibrationEffect
+import android.os.Vibrator
+import com.tfm.equip.Activities.PrincipalActivity
+import com.tfm.equip.R
+import com.tfm.equip.Utils.SharedData
 
 
 class EquipmentService: Service() {
@@ -28,13 +30,10 @@ class EquipmentService: Service() {
 
     private lateinit var timer: Timer
 
-    private lateinit var workerUUID: String
-
     private val beaconCallback: IBeaconCallback = object:IBeaconCallback {
         override fun onBeaconsDetected(beacons: ArrayList<Beacon>) {
-            equipmentBeacons.clear()
             var placeBeacon: Beacon? = null
-            var beaconToSend: Beacon = Beacon(workerUUID, 10, 1, 0, -80, 0.0)
+            var beaconToSend: Beacon = Beacon(SharedData.User?.uuid!!, 10, 1, 0, -80, 0.0)
             for(beacon in beacons){
                 Log.i("Beacon", "UUID: " + beacon.uuid + "\tMAJOR: " + beacon.major + "\tMINOR: " + beacon.minor + "\tTXPOWER: " + beacon.txPower + "\t" + "RSSI: " + beacon.rssi + "\tDISTANCE2: " + beacon.getCalculatedDistance() + "\tDISTANCE 1: " + beacon.distance)
                 if(!beacon.uuid.equals(Constants.UUID_EQUIPMENT) && !beacon.uuid.equals(Constants.UUID_PLACE)) continue
@@ -46,8 +45,6 @@ class EquipmentService: Service() {
                 }
                 else if(beacon.uuid.equals(Constants.UUID_EQUIPMENT) && beacon.getCalculatedDistance() <= Constants.MAX_DISTANCE_EQUIPMENT){
                     beaconToSend.minor = beaconToSend.minor or beacon.minor
-
-                    equipmentBeacons.add(beacon)
                 }
             }
 
@@ -77,10 +74,6 @@ class EquipmentService: Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
 
-        if(intent != null){
-            this.workerUUID = intent.getStringExtra("workerUUID")
-        }
-
         val notificationIntent = Intent(applicationContext, MainActivity::class.java)
         notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val pendingIntent = PendingIntent.getActivity(
@@ -88,9 +81,9 @@ class EquipmentService: Service() {
             notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT
         )
         val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID_SERVICE)
-            .setSmallIcon(R.mipmap.sym_def_app_icon)
-            .setContentTitle("PRUEBA")
-            .setContentText("PRUEBA")
+            .setSmallIcon(android.R.mipmap.sym_def_app_icon)
+            .setContentTitle(getString(R.string.equipment_service_notification_title))
+            .setContentText(getString(R.string.equipment_service_notification_substitle))
             .setContentIntent(pendingIntent)
             .build()
 
@@ -98,16 +91,17 @@ class EquipmentService: Service() {
 
         startForeground(SERVICE_ID, notification)
         beaconProvider.start(beaconCallback)
+        SharedData.EquipmentServiceIsRunning = true
 
         return START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i("AQUI:", "AQUIIII")
         beaconTransmiter.stop()
         beaconProvider.stop()
         isTransmiting = false
+        SharedData.EquipmentServiceIsRunning = false
     }
 
     override fun onBind(intent: Intent?): IBinder? {

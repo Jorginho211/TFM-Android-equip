@@ -34,6 +34,7 @@ class SplashActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.putExtra("loginApi", loginApi)
+        intent.putExtra("startEquipmentService", true)
         startActivity(intent)
     }
 }

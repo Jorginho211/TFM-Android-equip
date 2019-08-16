@@ -29,4 +29,7 @@
     <string name="state_equipment_text">Equipamento:</string>
     <string name="state_place_title">Area Actual:</string>
 
+    <!-- EQUIPMENT SERVICE -->
+    <string name="equipment_service_notification_title">Servicio de xestión do operario</string>
+    <string name="equipment_service_notification_substitle">O dispositivo esta lendo areas e equipamentos</string>
 </resources>
