@@ -20,6 +20,7 @@ import android.support.v4.app.NotificationManagerCompat
 import com.tfm.equip.Activities.PrincipalActivity
 import com.tfm.equip.Activities.StateActivity
 import com.tfm.equip.R
+import com.tfm.equip.Utils.Constants
 
 
 class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
@@ -65,7 +66,7 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
         else if(lastPlace !== null && place !== null && place.getCalculatedDistance() < lastPlace!!.getCalculatedDistance()){
             lastPlace = place
         }
-        else {
+        else if(lastPlace !== null && place === null && System.currentTimeMillis() - lastPlace!!.lastSeen > maxTimeLastSeenMs) {
             lastPlace = null
         }
     }
@@ -82,10 +83,15 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
                 Log.i("AREA NO PERMISO:", SharedData.PlaceState!!.Name)
             }
 
-            if(SharedData.PlaceState  !== null && SharedData.PlaceState!!.HasPermission){
+            if(SharedData.PlaceState !== null && SharedData.PlaceState!!.HasPermission){
                 SharedData.EquipmentsPlaceStateRequired = db.placeHasEquipmentDao().getEquipmentsForPlace(SharedData.PlaceState!!.id) as ArrayList<EquipmentEntity>
             }
         }
+        else {
+            SharedData.PlaceState = null
+            SharedData.EquipmentsPlaceStateRequired = ArrayList()
+        }
+
 
         SharedData.EquipmentsState = ArrayList()
         for (eq in equipmentsBeacons){
@@ -94,9 +100,13 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
 
         var hasRequiredEquipment:Boolean = true
         var stringEquipmentsMissing:String = ""
+
+
         for(eq in SharedData.EquipmentsPlaceStateRequired){
             if(SharedData.EquipmentsState.find{ e -> e.id === eq.id } === null){
-                hasRequiredEquipment = false
+                if(lastPlace!!.getCalculatedDistance() <= Constants.MAX_DISTANCE_PLACE) {
+                    hasRequiredEquipment = false
+                }
                 stringEquipmentsMissing += eq.Name + ", "
             }
         }
