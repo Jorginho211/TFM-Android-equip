@@ -117,7 +117,7 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
         }
         else if(!lastVibrateForEquipment){
             lastVibrateForEquipment = true
-            //vibrate()
+            vibrate()
             stringEquipmentsMissing = stringEquipmentsMissing.trim(',', ' ')
             showNotification(stringEquipmentsMissing)
         }
