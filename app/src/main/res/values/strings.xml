@@ -25,9 +25,10 @@
     <string name="place_loading">Cargando Plano e Equipamento</string>
 
     <!-- STATE -->
-    <string name="state_title">Estado</string>
+    <string name="state_title">Estado Actual</string>
     <string name="state_equipment_text">Equipamento:</string>
-    <string name="state_place_title">Area Actual:</string>
+    <string name="state_loading">Cargando Estado Actual</string>
+    <string name="state_no_area">Ningunha area proxima</string>
 
     <!-- EQUIPMENT SERVICE -->
     <string name="equipment_service_notification_title">Servicio de xestión do operario</string>

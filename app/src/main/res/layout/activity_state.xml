@@ -7,19 +7,42 @@
         android:layout_height="match_parent"
         tools:context=".Activities.PlaceActivity">
 
+    <LinearLayout
+            android:id="@+id/loadingLayoutState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp">
+
+        <ProgressBar
+                android:id="@+id/progressBarState"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"/>
+
+        <TextView
+                android:id="@+id/loadingTextViewState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/state_loading" android:visibility="visible"/>
+    </LinearLayout>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp" app:srcCompat="@drawable/ic_error_black_24dp"
+            android:id="@+id/statePlaceNoPermisionImageView"
+            app:layout_constraintTop_toTopOf="@+id/statePlaceNameTextView"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/statePlaceNameTextView"/>
     <TextView
             android:text="Sala de maquinas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/statePlaceNameTextView"
-            app:layout_constraintStart_toEndOf="@+id/statePlaceTitleTextView" android:layout_marginStart="8dp"
-            android:textSize="18sp" android:textStyle="bold" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"/>
-    <TextView
-            android:text="@string/state_place_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/statePlaceTitleTextView"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp" android:textSize="18sp"
-            android:textStyle="bold" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"/>
+            android:textSize="18sp" android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/statePlaceNoPermisionImageView"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -27,7 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/stateEquipmentTextView"
-            app:layout_constraintTop_toBottomOf="@+id/statePlaceTitleTextView" android:layout_marginTop="16dp">
+            app:layout_constraintTop_toBottomOf="@+id/statePlaceNameTextView" android:layout_marginTop="16dp">
 
     </FrameLayout>
     <TextView

@@ -35,13 +35,8 @@ class EquipmentFragment: Fragment() {
         return root
     }
 
-    fun showEquipments(equipmentsPlace: ArrayList<EquipmentEntity>, equipmentsUser: ArrayList<EquipmentEntity>?){
-        if(equipmentsUser == null){
-            var adapter:ArrayAdapter<EquipmentEntity> = ArrayAdapter<EquipmentEntity>(this.context, android.R.layout.simple_list_item_1, equipmentsPlace)
-            equipmentListView.adapter = adapter
-            return
-        }
+    fun showEquipments(equipments: ArrayList<EquipmentEntity>){
+        var adapter = EquipmentsArrayAdapter(this.context!!, R.layout.equipment_listview_item, equipments)
+        equipmentListView.adapter = adapter
     }
-
-
 }

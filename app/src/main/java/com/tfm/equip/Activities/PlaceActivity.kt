@@ -63,7 +63,7 @@ class PlaceActivity : AppCompatActivity() {
 
         GetPlaceEquipmentsBD(this, object : CallbackInterface<ArrayList<EquipmentEntity>> {
             override fun doCallback(equipments: ArrayList<EquipmentEntity>) {
-                equipmentFragment.showEquipments(equipments, null)
+                equipmentFragment.showEquipments(equipments)
             }
         }).execute(idPlace)
 
