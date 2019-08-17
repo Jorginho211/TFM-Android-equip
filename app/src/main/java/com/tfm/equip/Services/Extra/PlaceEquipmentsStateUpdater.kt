@@ -108,6 +108,7 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
                     hasRequiredEquipment = false
                 }
                 stringEquipmentsMissing += eq.Name + ", "
+                eq.IsEquip = false
             }
         }
 
@@ -116,7 +117,7 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
         }
         else if(!lastVibrateForEquipment){
             lastVibrateForEquipment = true
-            vibrate()
+            //vibrate()
             stringEquipmentsMissing = stringEquipmentsMissing.trim(',', ' ')
             showNotification(stringEquipmentsMissing)
         }

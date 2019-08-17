@@ -13,5 +13,10 @@ data class UserEntity(
     val uuid:String,
 
     var Token: String,
-    var IsLogged: Boolean
+
+    @NotNull
+    var IsLogged: Boolean,
+
+    @NotNull
+    var FrequencySendData: Long
 )

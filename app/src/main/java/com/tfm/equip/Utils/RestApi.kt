@@ -1,8 +1,10 @@
 package com.tfm.equip.Utils
 
+import android.util.Log
 import com.tfm.equip.DTOs.EquipmentDTO
 import com.tfm.equip.DTOs.PlaceDTO
 import com.tfm.equip.DTOs.UserDTO
+import org.json.JSONArray
 import org.json.JSONObject
 
 class RestApi {
@@ -38,6 +40,7 @@ class RestApi {
                 user.id = userJson.getJSONObject("user").getInt("id")
                 user.token = userJson.getString("token")
                 user.uuid = userJson.getJSONObject("user").getString("uuid")
+                user.frequencySendData = userJson.getJSONObject("user").getLong("frequencySendData")
 
                 callback.doCallback(user)
             }
@@ -153,7 +156,7 @@ class RestApi {
     }
 
     fun getPlace(idPlace:Int, token:String, callback: CallbackInterface<PlaceDTO?>) {
-        val resource:String = "/api/v1/place/" + idPlace;
+        val resource:String = "/api/v1/place/" + idPlace
 
         val headers:Map<String,String> = mapOf("Authorization" to "Bearer " + token)
 
@@ -176,5 +179,31 @@ class RestApi {
                 callback.doCallback(placeDTO)
             }
         }
+    }
+
+    fun uploadMonitorData(idUser: Int, idPlace: Int, equipmentsId: Array<Int>, token:String){
+        val resource:String = "/api/v1/user/" + idUser + "/monitorData"
+
+        val headers:Map<String,String> = mapOf("Authorization" to "Bearer " + token, "Content-Type" to "application/json")
+
+        val payload:JSONObject = JSONObject()
+        if(idPlace > 0){
+            payload.put("place", idPlace)
+        }
+
+        if(equipmentsId.size > 0){
+            payload.put("equipments", JSONArray(equipmentsId))
+        }
+
+        khttp.async.post(URI_BASE + resource, headers, data = payload, onError = {
+            Log.d("API ERROR: ", "Error Subiendo Datos")
+        }, onResponse = {
+            if(this.statusCode === 201){
+                Log.d("API: ", "Datos Monitorizacion enviados")
+            }
+            else {
+                Log.d("API ERROR: ", "Error " + this.statusCode + ": Subiendo datos")
+            }
+        })
     }
 }

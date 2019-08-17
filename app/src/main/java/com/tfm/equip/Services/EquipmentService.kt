@@ -14,6 +14,7 @@ import android.os.Build
 import com.tfm.equip.Activities.PrincipalActivity
 import com.tfm.equip.R
 import com.tfm.equip.Services.Extra.PlaceEquipmentsStateUpdater
+import com.tfm.equip.Utils.RestApi
 import com.tfm.equip.Utils.SharedData
 import java.util.*
 
@@ -28,6 +29,7 @@ class EquipmentService: Service() {
 
     private lateinit var transmitionTimer: Timer
     private lateinit var checkerInterval: Timer
+    private lateinit var updateMonitorDataInterval: Timer
     private lateinit var placeEquipmentsStateUpdate: PlaceEquipmentsStateUpdater
 
     private val beaconCallback: IBeaconCallback = object:IBeaconCallback {
@@ -108,6 +110,21 @@ class EquipmentService: Service() {
             }
         }, Constants.INTERVAL_CHECK_PLACE_EQUIPMENT, Constants.INTERVAL_CHECK_PLACE_EQUIPMENT)
 
+        updateMonitorDataInterval = Timer()
+        updateMonitorDataInterval.schedule(object:TimerTask(){
+            override fun run() {
+                val restApi:RestApi = RestApi()
+                var idPlace:Int = -1
+                if(SharedData.PlaceState !== null){
+                    idPlace = SharedData.PlaceState!!.id
+                }
+
+                var equipmentsId:Array<Int> = SharedData.EquipmentsState.map{ e -> e.id}.toTypedArray()
+                restApi.uploadMonitorData(SharedData.User!!.id, idPlace, equipmentsId, SharedData.User!!.Token)
+            }
+
+        }, SharedData.User!!.FrequencySendData * 1000, SharedData.User!!.FrequencySendData * 1000)
+
         startForeground(SERVICE_ID, notification)
 
         return START_STICKY
@@ -120,6 +137,7 @@ class EquipmentService: Service() {
         isTransmiting = false
         SharedData.EquipmentServiceIsRunning = false
         checkerInterval.cancel()
+        updateMonitorDataInterval.cancel()
     }
 
     override fun onBind(intent: Intent?): IBinder? {

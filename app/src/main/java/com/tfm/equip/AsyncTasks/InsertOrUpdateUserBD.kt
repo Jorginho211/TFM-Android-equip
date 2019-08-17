@@ -23,10 +23,11 @@ class InsertOrUpdateUserBD(context: Context, callback:CallbackInterface<UserEnti
         if(userEntity != null){
             userEntity.Token = userDTO.token
             userEntity.IsLogged = true
+            userEntity.FrequencySendData = userDTO.frequencySendData
             db.userDao().update(userEntity)
         }
         else {
-            userEntity = UserEntity(userDTO.id, userDTO.uuid, userDTO.token, true)
+            userEntity = UserEntity(userDTO.id, userDTO.uuid, userDTO.token, true, userDTO.frequencySendData)
             db.userDao().logoutAllUsers()
             db.userDao().insert(userEntity)
         }
