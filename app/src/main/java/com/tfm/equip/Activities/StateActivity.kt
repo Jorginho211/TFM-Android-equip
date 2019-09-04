@@ -27,7 +27,6 @@ class StateActivity : AppCompatActivity() {
     private lateinit var stateImageViewFrame: FrameLayout
     private lateinit var stateEquipmentTextView: TextView
     private lateinit var loadingLayoutState: LinearLayout
-    private lateinit var statePlaceTitleTextView: TextView
     private lateinit var statePlaceNameTextView: TextView
     private lateinit var statePlaceNoPermisionImageView: ImageView
 

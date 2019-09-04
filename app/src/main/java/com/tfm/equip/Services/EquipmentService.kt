@@ -37,7 +37,7 @@ class EquipmentService: Service() {
             var placeBeacon: Beacon? = null
             var equipmentBeacons:ArrayList<Beacon> = ArrayList()
 
-            var beaconToSend: Beacon = Beacon(SharedData.User?.uuid!!, 10, 1, 0, -80, 0.0)
+            var beaconToSend: Beacon = Beacon(SharedData.User?.uuid!!, 10, 1, 0, -73, 0.0)
             for(beacon in beacons){
                 Log.i("Beacon", "UUID: " + beacon.uuid + "\tMAJOR: " + beacon.major + "\tMINOR: " + beacon.minor + "\tTXPOWER: " + beacon.txPower + "\t" + "RSSI: " + beacon.rssi + "\tDISTANCE2: " + beacon.getCalculatedDistance() + "\tDISTANCE 1: " + beacon.distance)
                 if(!beacon.uuid.equals(Constants.UUID_EQUIPMENT) && !beacon.uuid.equals(Constants.UUID_PLACE)) continue
@@ -70,7 +70,7 @@ class EquipmentService: Service() {
                     isTransmiting = false
                     beaconTransmiter.stop()
                 }
-            }, 3000)
+            }, 1000)
         }
 
         override fun onError() {

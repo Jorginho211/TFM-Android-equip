@@ -8,7 +8,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class RestApi {
-    val URI_BASE:String = "http://10.42.0.1:3001"
+    val URI_BASE:String = "https://10.42.0.1:3000"
 
     companion object{
         private var INSTANCE:RestApi? = null

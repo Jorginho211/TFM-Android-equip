@@ -2,7 +2,6 @@ package com.tfm.equip.BeaconProvider
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.time.LocalTime
 
 
 class Beacon: Parcelable {
@@ -40,9 +39,19 @@ class Beacon: Parcelable {
     }
 
     fun getCalculatedDistance(): Double {
-        val n: Int = 3
+        var distance:Double
 
-        val distance:Double =  Math.pow(10.0, ((this.txPower - this.rssi)/(10.0 * n)))
+        if (rssi === 0) {
+            return -1.0
+        }
+
+        val ratio = rssi * 1.0 / txPower
+        if (ratio < 1.0) {
+            distance = Math.pow(ratio, 10.0)
+        } else {
+            distance = 0.89976 * Math.pow(ratio, 7.7095) + 0.111
+        }
+
         return distance
     }
 

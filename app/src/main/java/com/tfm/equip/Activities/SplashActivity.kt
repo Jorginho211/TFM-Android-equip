@@ -7,11 +7,15 @@ import com.tfm.equip.AsyncTasks.GetLastLoggedUserBD
 import com.tfm.equip.Database.Entities.UserEntity
 import com.tfm.equip.Utils.CallbackInterface
 import com.tfm.equip.Utils.SharedData
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import javax.net.ssl.*
 
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        certificate()
 
         GetLastLoggedUserBD(this, object : CallbackInterface<UserEntity?> {
             override fun doCallback(userEntity: UserEntity?) {
@@ -27,6 +31,38 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }).execute()
+    }
+
+    private fun certificate(){
+        try {
+            val victimizedManager = arrayOf<TrustManager>(
+
+                object : X509TrustManager {
+                    override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+
+                    }
+
+                    override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+
+                    }
+
+                    override fun getAcceptedIssuers(): Array<X509Certificate> {
+                        return arrayOf()
+                    }
+                })
+
+            val sc = SSLContext.getInstance("SSL")
+            sc.init(null, victimizedManager, SecureRandom())
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory())
+            HttpsURLConnection.setDefaultHostnameVerifier(object : HostnameVerifier {
+                override fun verify(hostname: String?, session: SSLSession?): Boolean {
+                    return true
+                }
+            })
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     fun loginSucess(loginApi: Boolean){

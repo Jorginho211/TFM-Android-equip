@@ -72,10 +72,13 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
     }
 
     fun updateState(){
+        var vibrate:Boolean = true
         if(lastPlace !== null){
-            var vibrate:Boolean = true
             if(SharedData.PlaceState !== null && lastPlace!!.major === SharedData.PlaceState!!.Major && lastPlace!!.minor === SharedData.PlaceState!!.Minor){
                 vibrate = false
+            }
+            else {
+                lastVibrateForEquipment = false
             }
 
             SharedData.PlaceState = db.placeDao().getPlaceByMajorMinor(lastPlace!!.major, lastPlace!!.minor)
@@ -88,10 +91,22 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
             }
         }
         else {
+            lastVibrateForEquipment = false
             SharedData.PlaceState = null
             SharedData.EquipmentsPlaceStateRequired = ArrayList()
         }
 
+        var equipmentStateDiferent = false
+        if(SharedData.EquipmentsState.size !== equipmentsBeacons.size){
+            equipmentStateDiferent = true
+        }
+        else {
+            for (eq in equipmentsBeacons){
+                if(SharedData.EquipmentsState.find{ e -> eq.major === e.Major && eq.minor === e.Minor} === null){
+                    equipmentStateDiferent = true
+                }
+            }
+        }
 
         SharedData.EquipmentsState = ArrayList()
         for (eq in equipmentsBeacons){
@@ -104,7 +119,7 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
 
         for(eq in SharedData.EquipmentsPlaceStateRequired){
             if(SharedData.EquipmentsState.find{ e -> e.id === eq.id } === null){
-                if(lastPlace!!.getCalculatedDistance() <= Constants.MAX_DISTANCE_PLACE) {
+                if(lastPlace!!.getCalculatedDistance() <= (Constants.MAX_DISTANCE_PLACE + 3)) {
                     hasRequiredEquipment = false
                 }
                 stringEquipmentsMissing += eq.Name + ", "
@@ -112,11 +127,12 @@ class PlaceEquipmentsStateUpdater(context:Context, maxTimeLastSeenMs:Long) {
             }
         }
 
-        if(hasRequiredEquipment) {
-            lastVibrateForEquipment = false
-        }
-        else if(!lastVibrateForEquipment){
+        if(!hasRequiredEquipment && (equipmentStateDiferent || (SharedData.EquipmentsState.size === 0 && !lastVibrateForEquipment))){
             lastVibrateForEquipment = true
+            if(equipmentStateDiferent){
+                lastVibrateForEquipment = false
+            }
+
             vibrate()
             stringEquipmentsMissing = stringEquipmentsMissing.trim(',', ' ')
             showNotification(stringEquipmentsMissing)
